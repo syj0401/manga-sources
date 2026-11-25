@@ -16,6 +16,10 @@
   var UA = 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36';
   var CITY = { cn: '338', jp: '78', kr: '78' };
   function headers(base) { return { 'User-Agent': UA, 'Referer': base.replace(/\/?$/, '/'), 'Accept-Language': 'zh-CN,zh;q=0.9' }; }
+  function absCover(u, base) {
+    if (!u) return '';
+    try { return new URL(u, base.replace(/\/?$/, '/')).href; } catch (e) { return u; }
+  }
   function idOf(href) {
     var m = String(href || '').match(/comic\.php\?id=(\d+)/);
     return m ? m[1] : '';
@@ -32,7 +36,7 @@
       var parts = meta ? meta.textContent.split('·').map(function (s) { return s.trim(); }).filter(Boolean) : [];
       var state = card.querySelector('.genre');
       out.push({ id: id, title: a.textContent.trim() || (img && (img.getAttribute('alt') || '').replace(/漫画封面$/, '')) || '',
-        author: parts[0] || '', cover: img ? (img.getAttribute('data-src') || img.getAttribute('src') || '') : '',
+        author: parts[0] || '', cover: img ? absCover(img.getAttribute('data-src') || img.getAttribute('src') || '', base) : '',
         coverKind: 'guazimanhua', coverReferer: base.replace(/\/?$/, '/'), coverUa: UA,
         tags: parts.slice(1).concat(state ? [state.textContent.trim()] : []) });
     });
@@ -105,6 +109,8 @@
       var urls = [];
       doc.querySelectorAll('img.reading-image').forEach(function (img) {
         var u = img.getAttribute('data-src') || img.getAttribute('data-original') || img.getAttribute('src') || '';
+        // gemini-fix 8: resolve relative / protocol-relative image paths against the chapter page
+        if (u && !/placeholder|loading/.test(u)) { try { u = new URL(u, chapterUrl).href; } catch (e) {} }
         if (u && urls.indexOf(u) < 0 && !/placeholder|loading/.test(u)) urls.push(u);
       });
       if (!urls.length) throw new Error('这一话没有拿到图片');

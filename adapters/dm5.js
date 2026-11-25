@@ -144,7 +144,7 @@
         chapters: chapters
       };
     },
-    async getChapterPages(config, comicId, chapterId) {
+    async getChapterPages(config, comicId, chapterId, ref, options) {
       var base = srcBase(config);
       var chapterUrl = base + '/m' + chapterId + '/';
       var html = await httpText(chapterUrl, headers(base + '/' + comicId + '/'));
@@ -153,10 +153,17 @@
       var sign = pageVar(html, 'DM5_VIEWSIGN'), dt = pageVar(html, 'DM5_VIEWSIGN_DT');
       if (!count || !mid) throw new Error('动漫屋章节页格式变了');
       var urls = [], seen = {}, page = 1, guard = 0;
+      var signal = options && options.signal;
+      var abortIfNeeded = function () {
+        // fixes3: stop paging once the reader gave up (older 2.0.2 builds pass no options -> never aborts)
+        if (signal && signal.aborted) throw new DOMException('请求已取消', 'AbortError');
+      };
       while (urls.length < count && guard++ < count + 5) {
+        abortIfNeeded();
         var api = chapterUrl + 'chapterfun.ashx?cid=' + cid + '&page=' + page + '&key=&language=1&gtk=6&_cid=' + cid
           + '&_mid=' + mid + '&_dt=' + encodeURIComponent(dt) + '&_sign=' + sign;
         var text = unpackScript(await httpText(api, Object.assign(headers(chapterUrl), { 'X-Requested-With': 'XMLHttpRequest' })));
+        abortIfNeeded();
         var pix = (text.match(/var\s+pix\s*=\s*"([^"]*)"/) || [])[1] || '';
         var list = (text.match(/var\s+pvalue\s*=\s*\[([^\]]*)\]/) || [])[1];
         var key = (text.match(/var\s+key\s*=\s*'([^']*)'/) || [])[1] || '';
@@ -166,6 +173,7 @@
         var added = 0;
         batch.forEach(function (p) {
           var u = /^(https?:)?\/\//i.test(p) ? p : pix + p + '?cid=' + cid + '&key=' + key;
+          if (/^\/\//.test(u)) u = 'https:' + u; // protocol-relative pix / page URLs
           var name = p.split('?')[0];
           if (seen[name]) return;
           seen[name] = true;
@@ -173,6 +181,10 @@
           added++;
         });
         if (!added) break;
+        if (page === 1 && options && typeof options.onProgress === 'function') {
+          // first batch -> reader can show page 1 while the rest is still being fetched
+          try { options.onProgress({ firstPages: urls.slice(0, count).map(function (u) { return { url: u, kind: 'dm5', referer: chapterUrl, ua: UA }; }) }); } catch (e) {}
+        }
         page += added;
       }
       if (!urls.length) throw new Error('这一话没有拿到图片（可能是付费章节）');

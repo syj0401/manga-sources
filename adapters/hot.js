@@ -23,7 +23,9 @@
     });
   }
   async function hotGet(src, path) {
-    var bases = src.baseUrls || [srcBase(src)];
+    var bases = (src.baseUrls || [srcBase(src)]).slice();
+    // gemini-fix 8: the domain that answered last time goes first
+    if (src._liveBase && bases.indexOf(src._liveBase) > 0) { bases.splice(bases.indexOf(src._liveBase), 1); bases.unshift(src._liveBase); }
     var last = null;
     for (var i = 0; i < bases.length; i++) {
       try { var j = await httpJson(bases[i] + path, HEADERS); src._liveBase = bases[i]; return j; }

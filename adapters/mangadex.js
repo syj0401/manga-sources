@@ -60,6 +60,10 @@
     async getComicDetail(config, comicId) {
       var mj = await httpJson(api(config) + '/manga/' + comicId + '?includes[]=cover_art&includes[]=author', UA);
       var manga = mapManga(mj.data || { id: comicId, attributes: {} });
+      // gemini-fix 8: list/search only ask for contentRating=safe, but a bookmark / history / imported id
+      // can point anywhere — re-check on the detail page too.
+      var rating = mj.data && mj.data.attributes && mj.data.attributes.contentRating;
+      if (rating && rating !== 'safe') throw Object.assign(new Error('这部作品在 MangaDex 上不是全年龄（' + rating + '），正常区不显示'), { adultBlocked: true });
       var feed = [], offset = 0, total = Infinity;
       while (offset < total && offset < 10000) {
         var j = await httpJson(api(config) + '/manga/' + comicId + '/feed?limit=500&offset=' + offset
@@ -74,11 +78,13 @@
       feed.forEach(function (c) {
         var a = c.attributes || {};
         if (!(a.pages > 0) || a.externalUrl) return;
-        var key = a.chapter != null ? 'c' + a.chapter : 'id' + c.id;
+        // gemini-fix 8: chapter '' (oneshots) must not all merge into one key
+        var hasNum = a.chapter != null && String(a.chapter).trim() !== '';
+        var key = hasNum ? 'c' + a.chapter : 'id' + c.id;
         if (!byNum[key]) order.push(key);
         if (!byNum[key] || (a.translatedLanguage === 'zh' && byNum[key].lang !== 'zh')) {
           byNum[key] = { id: c.id, lang: a.translatedLanguage,
-            title: (a.chapter != null ? '第' + a.chapter + '话' : '单话') + (a.title ? ' ' + a.title : '') + (a.translatedLanguage === 'zh-hk' ? '（繁）' : '') };
+            title: (hasNum ? '第' + a.chapter + '话' : '单话') + (a.title ? ' ' + a.title : '') + (a.translatedLanguage === 'zh-hk' ? '（繁）' : '') };
         }
       });
       var chapters = order.map(function (k) { return byNum[k]; });

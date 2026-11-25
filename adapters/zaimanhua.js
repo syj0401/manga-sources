@@ -71,7 +71,8 @@
     async getChapterPages(config, comicId, chapterId) {
       var j = await httpJson(api(config) + 'comic/chapter/' + comicId + '/' + chapterId, HEADERS);
       var d = (j.data && j.data.data) || j.data || {};
-      var urls = d.page_url_hd || d.page_url || [];
+      // gemini-fix 8: an empty page_url_hd [] is truthy; fall back to page_url
+      var urls = (Array.isArray(d.page_url_hd) && d.page_url_hd.length) ? d.page_url_hd : (d.page_url || []);
       if (!urls.length) throw new Error('这一话没有拿到图片');
       return urls.map(function (u) { return { url: u, kind: 'zaimanhua' }; });
     },

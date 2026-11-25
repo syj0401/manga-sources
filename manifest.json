@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "rulesVersion": "2026.11.25-1",
+  "rulesVersion": "2026.11.25-3",
   "minAppVersion": "2.0.2",
-  "updatedAt": "2026-11-25T03:08:45.836Z",
+  "updatedAt": "2026-11-25T08:55:05.166Z",
   "files": [
     {
       "path": "sources.json",
-      "sha256": "5b70dffb0325f0208ce6ed86023fc433ed2ec3e075ad3e058bcc7c1620d7100d",
-      "size": 16175
+      "sha256": "ae204288166f73d81deb0553c1be2d77d37c62d8b09027fe3674cc185682d787",
+      "size": 16379
     },
     {
       "path": "adapters/baozi.js",
@@ -16,8 +16,8 @@
     },
     {
       "path": "adapters/dm5.js",
-      "sha256": "5a057c77972fd6a92a1746174cb729f4158182475fe0e602d4c6561f2ab02cf1",
-      "size": 10025
+      "sha256": "7da58bfe10b7208003a14958a9429ba5323bc52ebba2ab194103f0257439b6dd",
+      "size": 10825
     },
     {
       "path": "adapters/goda.js",
@@ -26,23 +26,23 @@
     },
     {
       "path": "adapters/guazimanhua.js",
-      "sha256": "3f52811913be8b9dbbcf0be5254e7985a57459abd7b5da0fa17f1351e04737a1",
-      "size": 6664
+      "sha256": "254c48a43d52f67e0cac8b2847493fd4708ff6f06894fcfc86aad5768db6292f",
+      "size": 7029
     },
     {
       "path": "adapters/hot.js",
-      "sha256": "92497863d62cbb74d2914ab5a238718b899a7fc23e2ef29e3cde129ddcc6eaf5",
-      "size": 6448
+      "sha256": "ceefd5b0a9680c57f2a2174e5f057d65490b99576ee53968a792b30c8f510d3d",
+      "size": 6665
     },
     {
       "path": "adapters/komiic.js",
-      "sha256": "0862276a3248ff192306df8a2caa7dc1f565f76a6240d205c790f570119d6051",
-      "size": 6743
+      "sha256": "8d5550bc1f2b73fcfabd73c3cb2eb78e64b2022859dcbfee9c51bb151333f27f",
+      "size": 7003
     },
     {
       "path": "adapters/mangadex.js",
-      "sha256": "cd82dc62a86d95ab1bbcea9a371a8a7b4e16e1317ec77d317c3ac6fe99db1005",
-      "size": 5708
+      "sha256": "9537602b657d7a260ed83705909c6cc7b00a6f211ab10e33fb28453429b46cf8",
+      "size": 6281
     },
     {
       "path": "adapters/manhuagui.js",
@@ -61,8 +61,8 @@
     },
     {
       "path": "adapters/zaimanhua.js",
-      "sha256": "035c1041f30d887310335f50c215a4254649cd5fb23579d06928bc2bfea82949",
-      "size": 4795
+      "sha256": "384418d88751bc7a7066b051c90d749ec256ba8f0fdd2fb0410e721691cb32e1",
+      "size": 4933
     }
   ]
 }

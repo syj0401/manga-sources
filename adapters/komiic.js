@@ -16,7 +16,10 @@
     return { operationName: operationName, variables: variables, query: query };
   }
   async function query(src, payload) {
-    var list = bases(src), last = null;
+    var list = bases(src).map(function (b) { return String(b).replace(/\/$/, ''); }), last = null;
+    // gemini-fix 8: the domain that answered last time goes first
+    var live = src._liveBase && list.indexOf(src._liveBase);
+    if (live > 0) { list.splice(live, 1); list.unshift(src._liveBase); }
     for (var i = 0; i < list.length; i++) {
       var base = String(list[i]).replace(/\/$/, '');
       try {
