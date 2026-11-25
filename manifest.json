@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "2026.11.25-1",
+  "minAppVersion": "2.0.2",
+  "updatedAt": "2026-11-25T03:08:45.836Z",
+  "files": [
+    {
+      "path": "sources.json",
+      "sha256": "5b70dffb0325f0208ce6ed86023fc433ed2ec3e075ad3e058bcc7c1620d7100d",
+      "size": 16175
+    },
+    {
+      "path": "adapters/baozi.js",
+      "sha256": "0ef76f7e7631de2de2ad190aaa668b4e0d5f157ce1be8afa6abecd8ce740c5fb",
+      "size": 23960
+    },
+    {
+      "path": "adapters/dm5.js",
+      "sha256": "5a057c77972fd6a92a1746174cb729f4158182475fe0e602d4c6561f2ab02cf1",
+      "size": 10025
+    },
+    {
+      "path": "adapters/goda.js",
+      "sha256": "59d12f7b5b7ebf6f249e0c5f54bab0ba9ce6db9c5d3c2c06daab3ae0452f7b61",
+      "size": 7933
+    },
+    {
+      "path": "adapters/guazimanhua.js",
+      "sha256": "3f52811913be8b9dbbcf0be5254e7985a57459abd7b5da0fa17f1351e04737a1",
+      "size": 6664
+    },
+    {
+      "path": "adapters/hot.js",
+      "sha256": "92497863d62cbb74d2914ab5a238718b899a7fc23e2ef29e3cde129ddcc6eaf5",
+      "size": 6448
+    },
+    {
+      "path": "adapters/komiic.js",
+      "sha256": "0862276a3248ff192306df8a2caa7dc1f565f76a6240d205c790f570119d6051",
+      "size": 6743
+    },
+    {
+      "path": "adapters/mangadex.js",
+      "sha256": "cd82dc62a86d95ab1bbcea9a371a8a7b4e16e1317ec77d317c3ac6fe99db1005",
+      "size": 5708
+    },
+    {
+      "path": "adapters/manhuagui.js",
+      "sha256": "6c774399e4df7055e22a9b02128441d1c38c24639d803c426a831c34188c9604",
+      "size": 10506
+    },
+    {
+      "path": "adapters/mycomic.js",
+      "sha256": "0e1ccb3c5db76f3d017d4cada1e197c937632ba62f473e5c9e238ab01dfb55dc",
+      "size": 6041
+    },
+    {
+      "path": "adapters/rumanhua.js",
+      "sha256": "23bd8517fa3d39b3592b224a5947c1e4b7908bd14c1cd43ac8327a51bdc803bc",
+      "size": 8471
+    },
+    {
+      "path": "adapters/zaimanhua.js",
+      "sha256": "035c1041f30d887310335f50c215a4254649cd5fb23579d06928bc2bfea82949",
+      "size": 4795
+    }
+  ]
+}

@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 2.2,
+  "updatedAt": "2026-11-25",
+  "note": "远程源规则（只含正常区）。成人区源、成人区适配器、free_only 策略都不能通过远程更新修改，App 会忽略这些字段/条目。",
+  "sources": [
+    {
+      "adapter": "baozi",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://cn.baozimh.com",
+        "https://cn.bzmgcn.com",
+        "https://www.webmota.com",
+        "https://twmanga.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "direct_fast",
+      "free": true,
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
+      },
+      "id": "baozi",
+      "imageCdnNodes": [
+        "https://static-tw.baozimh.com",
+        "https://as-rsa1-usla.baozicdn.com",
+        "https://ascn-a3.bzcdn.net",
+        "https://s1.baozicdn.com"
+      ],
+      "name": "包子漫画",
+      "note": "主源/国漫主力。搜索 /search?q=；章节图走 appcn.baozimh.com 端点。云端实测搜索曾 403（反爬），需真机验证。",
+      "paywallModel": "free_only",
+      "priority": 1,
+      "role": "primary",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 6000,
+        "pageMs": 12000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "goda",
+      "apiBase": "https://v2.apikk.top/api/v2",
+      "baseUrls": [
+        "https://godamh.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "unknown",
+      "free": true,
+      "headers": {
+        "Referer": "https://godamh.com",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0"
+      },
+      "id": "goda",
+      "imageBase": "https://c-nd3-1.6wm.top",
+      "imageCdnNodes": [
+        "https://c-nd3-1.6wm.top"
+      ],
+      "name": "GoDa漫画",
+      "note": "主源/全能。章节图片列表为混淆字符串，需 GoDa 解码器（见 adapters/goda.js）。云端实测搜索 200，TTFB 约 1.1s（云端代理，仅供参考）。 v2.0.2 第四轮：最近更新/最热改用 /dayup、/hots（旧 /manga-genre/dayup 已变成空页）。",
+      "paywallModel": "free_only",
+      "priority": 1,
+      "role": "primary",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 6000,
+        "pageMs": 12000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "copy",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://api.copy2000.online",
+        "https://www.copy20.com",
+        "https://mangacopy.com",
+        "https://mapi.copy20.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "unknown",
+      "free": true,
+      "headers": {
+        "User-Agent": "COPY/3.0.6",
+        "platform": "3",
+        "source": "copyApp",
+        "version": "3.0.6"
+      },
+      "id": "copymanga",
+      "imageCdnNodes": [],
+      "name": "拷贝漫画（严滤版）",
+      "note": "主源/日韩最全。HMAC-SHA256 签名头（见 source-engine.js，按 Venera copy_manga.js GPL-3.0）。API 无可靠全年龄过滤，只靠标签黑名单；真机测出拦不住就立即从正常区移除，只留成人区。云端实测搜索 200，TTFB 约 1.4s（云端代理，仅供参考）。 v2.0.2 第四轮：按源域名并发切换并记住可用域名，诊断探针改测实际生效的域名。",
+      "paywallModel": "free_only",
+      "priority": 2,
+      "role": "primary",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 6000,
+        "pageMs": 12000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "mycomic",
+      "baseUrls": [
+        "https://mycomic.com/cn"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "cloudflare_wall",
+      "free": true,
+      "headers": {
+        "Referer": "https://mycomic.com/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      },
+      "id": "mycomic",
+      "imageCdnNodes": [
+        "https://biccam.com"
+      ],
+      "name": "MYCOMIC",
+      "note": "备用源。Cloudflare 盾：遇 403/503 验证页时走 WebView 过盾器（cf_clearance Cookie）。大陆直连可用性存疑，需真机验证。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 6000,
+        "pageMs": 12000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "id": "komiic",
+      "name": "Komiic",
+      "adapter": "komiic",
+      "zone": "normal",
+      "categories": [],
+      "priority": 3,
+      "role": "backup",
+      "baseUrls": [
+        "https://komiic.com"
+      ],
+      "free": true,
+      "paywallModel": "free_only",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "verificationStatus": "unverified_on_device",
+      "status": "unverified_on_device",
+      "chinaNetworkExpectation": "unknown",
+      "headers": {},
+      "imageCdnNodes": [],
+      "note": "正常区补充源（GraphQL 公开接口，繁体为主）。只支持“全部”分类；匿名看图每日有额度限制。大陆连通性未验证。"
+    },
+    {
+      "id": "mangadex",
+      "name": "MangaDex",
+      "adapter": "mangadex",
+      "zone": "normal",
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "priority": 4,
+      "role": "backup",
+      "baseUrls": [
+        "https://api.mangadex.org"
+      ],
+      "free": true,
+      "paywallModel": "free_only",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "verificationStatus": "unverified_on_device",
+      "status": "unverified_on_device",
+      "chinaNetworkExpectation": "slow_overseas",
+      "headers": {
+        "User-Agent": "MangaReader/1.0"
+      },
+      "imageCdnNodes": [
+        "https://uploads.mangadex.org"
+      ],
+      "rating": "safe",
+      "note": "官方 REST API，只列有 zh / zh-hk 翻译的作品，contentRating=safe。海外站，大陆速度和连通性未验证。"
+    },
+    {
+      "adapter": "zaimanhua",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正",
+          "绅士",
+          "紳士"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://v4api.zaimanhua.com/app/v1"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "direct_expected",
+      "free": true,
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android) Mobile",
+        "Authorization": "Bearer "
+      },
+      "id": "zaimanhua-app",
+      "imageCdnNodes": [],
+      "name": "再漫画",
+      "note": "v2.0.2 sources 轮启用（适配器 2.0.2 早已写好、此前未进源池）。国内平台 App 接口 v4api.zaimanhua.com，免登录。2026-11-25 box（境外出口）实测见 REPORT 十八。大陆连通性未在真机验证。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 8000,
+        "pageMs": 15000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "hot",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正",
+          "绅士",
+          "紳士"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://api.2024manga.com",
+        "https://api.manga2025.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "unknown",
+      "free": true,
+      "headers": {
+        "platform": "3",
+        "version": "2024.04.28"
+      },
+      "id": "hotmanga-backup",
+      "imageCdnNodes": [],
+      "name": "热辣漫画",
+      "note": "拷贝漫画同系协议（hot.js，无签名），只作拷贝的协议/域名备份，不算新的内容库；搜索与列表只取 free_type=1。HTTP 210 = 限流，等待后最多重试两次，不绕过。正常区按标签黑名单过滤（列表只有书名可查，详情页按题材再查一次）。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 8000,
+        "pageMs": 15000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "manhuagui",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正",
+          "绅士",
+          "紳士"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://www.manhuagui.com",
+        "https://tw.manhuagui.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "ip_ban_risk",
+      "free": true,
+      "headers": {
+        "Referer": "https://www.manhuagui.com/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      },
+      "id": "manhuagui",
+      "imageCdnNodes": [
+        "https://i.hamreus.com",
+        "https://us.hamreus.com",
+        "https://eu.hamreus.com"
+      ],
+      "name": "漫画柜",
+      "note": "章节图片列表为 LZString + packer 打包（无 eval 解码，见 adapters/manhuagui.js）；图床 *.hamreus.com 必须带 Referer https://www.manhuagui.com/。站方对高频请求封 IP，适配器逐话单请求、不并发。带站方成人提示（#checkAdult）的作品在正常区直接拦下，不进成人区。公开资料称大陆 IP 常被限制，大陆连通性未验证。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 8000,
+        "pageMs": 15000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "guazimanhua",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正",
+          "绅士",
+          "紳士"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://www.guazimanhua.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "unknown",
+      "free": true,
+      "headers": {
+        "Referer": "https://www.guazimanhua.com/",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
+      },
+      "id": "guazimanhua",
+      "imageCdnNodes": [
+        "https://img.guazicdn.com"
+      ],
+      "name": "瓜子漫画",
+      "note": "纯 HTML 站（category.php / comic.php / chapter.php）。站内只有「日韩」一个分区，日漫和韩漫分类都取这一页。未见付费章节；但最新一话可能是「APP 专享」拦截页，适配器直接报错提示换源，不绕过。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 8000,
+        "pageMs": 15000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "dm5",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正",
+          "绅士",
+          "紳士"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://www.dm5.com"
+      ],
+      "categories": [
+        "jp",
+        "kr",
+        "cn"
+      ],
+      "chinaNetworkExpectation": "unknown",
+      "free": true,
+      "headers": {
+        "Referer": "https://www.dm5.com/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      },
+      "id": "dm5",
+      "imageCdnNodes": [
+        "https://*.cdndm5.com"
+      ],
+      "name": "动漫屋",
+      "note": "章节图片由 chapterfun.ashx 返回 packer 脚本（无 eval 解码），图床 *.cdndm5.com 必须以章节页为 Referer。带锁（.detail-lock）的付费章节直接从目录剔除，列表只取站方「免费」筛选（pay0）。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 8000,
+        "pageMs": 15000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    },
+    {
+      "adapter": "rumanhua",
+      "adultFilterRule": {
+        "blockedTags": [
+          "成人",
+          "18+",
+          "R18",
+          "H",
+          "里番",
+          "色情",
+          "18禁",
+          "無修正",
+          "绅士",
+          "紳士"
+        ],
+        "type": "tag_blocklist"
+      },
+      "baseUrls": [
+        "https://www.rumanhua.com",
+        "https://www.rumanhua2.com"
+      ],
+      "categories": [],
+      "chinaNetworkExpectation": "unknown",
+      "defaultEnabled": false,
+      "free": true,
+      "headers": {
+        "Referer": "https://www.rumanhua.com/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      },
+      "id": "rumanhua",
+      "imageCdnNodes": [],
+      "name": "如漫画",
+      "note": "默认关闭。box（境外出口）访问 www.rumanhua.com 被 301 到 rumanhua2.com 并返回 HTTP 500，无法实测；适配器按 Breeze-plugin-RuManHua 的公开解析写成（图片为站方 XOR+base64 混淆，非 AES）。需在大陆真机上于「源管理」手动打开并验证。",
+      "paywallModel": "free_only",
+      "priority": 3,
+      "role": "backup",
+      "searchCharset": "auto_fallback",
+      "supportsAggregatedSearch": true,
+      "timeouts": {
+        "coverMs": 8000,
+        "listMs": 8000,
+        "pageMs": 15000
+      },
+      "verificationStatus": "unverified_on_device",
+      "zone": "normal"
+    }
+  ]
+}
